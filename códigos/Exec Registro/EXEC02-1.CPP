@@ -1,0 +1,114 @@
+#include<stdio.h>
+#include<conio.h>
+#include<string.h>
+#include<math.h>
+
+int main(){
+
+	clrscr();
+
+	//force float
+		float x, *y;
+		y = &x;
+		x = *y;
+
+	
+	//Registros
+		struct MERCADORIA{
+			int ID;
+			int QTDVM;	
+			float PRECOU;
+			char DESCRICAO[20];
+		};
+	
+	//Constantes
+		const int MAX = 2;
+		const int COR1 = 10;
+		const int COR2 = 12;
+
+	//Variaveis
+		struct MERCADORIA FATURAMENTO[MAX];
+		int I, Cor, C;
+		float FAT_MENSAL;
+	//Inicializacao Variaveis
+		Cor = 0;
+		C = 0;
+		FAT_MENSAL = 0;
+	//Leitura
+		for(I = 0; I < MAX; I++){
+			//CODIGO
+				printf("\n");
+				printf("Entre com o Codigo da %ia Mercadoria: ",(I+1));
+					do{
+						scanf("%i", &FATURAMENTO[I].ID);
+					}while(FATURAMENTO[I].ID < 0);
+			//QTDVM
+				printf("\n");
+				printf("Entre com a QTD Vendida Neste Mes da %ia Mercadoria: ",(I+1));
+					do{
+						scanf("%i", &FATURAMENTO[I].QTDVM);
+					}while(FATURAMENTO[I].QTDVM < 0);
+			//PRECOU
+				printf("\n");
+				printf("Entre com o Preço Unitario da %ia Mercadoria: R$",(I+1));
+					do{
+						scanf("%f", &FATURAMENTO[I].PRECOU);
+					}while(FATURAMENTO[I].PRECOU < 0.0);
+			//DESCRICAO
+				printf("\n");
+				printf("Entre com a Descricao da %ia Mercadoria: ",(I+1));
+					do{
+						scanf("%s", &FATURAMENTO[I].DESCRICAO);
+					}while(FATURAMENTO[I].DESCRICAO == "");
+		}
+	//Processamento
+		for(I = 0; I < MAX; I++){
+			FAT_MENSAL = FAT_MENSAL + (FATURAMENTO[I].QTDVM * FATURAMENTO[I].PRECOU);
+		}
+
+	//Impressao Valores Lidos
+		//Muito extenso oO
+
+	//Impressao Resultado
+		printf("\n\n");
+		printf("CODIGO		DESCRICAO		QUANTIDADE		TOTAL\n");
+		printf("---------------------------------------------------------------------\n");
+		for(I = 0; I < MAX; I++){
+
+			if(Cor%2 == 0){
+				textcolor(COR1);
+			}else{
+				textcolor(COR2);
+			}
+
+
+			if((FATURAMENTO[I].PRECOU > 1) && (FATURAMENTO[I].QTDVM > 4)){
+				cprintf("%i",FATURAMENTO[I].ID);
+				printf("\t\t");
+				cprintf("%s",FATURAMENTO[I].DESCRICAO);
+				printf("\t\t");
+				cprintf("%i",FATURAMENTO[I].QTDVM);
+				printf("\t\t");
+				cprintf("R$%0.2f",(FATURAMENTO[I].PRECOU*FATURAMENTO[I].QTDVM));
+				printf("\n");
+				C += 1;
+				Cor +=1;
+			}
+
+			if(C == 0){
+				cprintf("NENHUMA MERCADORIA ACIMA DE R$1,00 FOI VENDIDA MAIS DE 4 VEZES");
+			}	
+		}
+		printf("\n");
+		printf("FATURAMENTO MENSAL:");
+		if(FAT_MENSAL > 0){
+			textcolor(10);
+		}else{
+			textcolor(12);
+		}
+		cprintf(" R$%0.2f",FAT_MENSAL);
+		
+	
+	getch();
+	return 0;
+}

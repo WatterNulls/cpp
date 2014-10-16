@@ -1,0 +1,153 @@
+#include<stdio.h>
+#include<conio.h>
+#include<math.h>
+#include<string.h>
+
+
+int main(){
+
+	clrscr();
+
+	//Registros
+		struct PAIS{
+			char pai[50];
+			char mae[50];
+		};
+
+		struct DT_NASC{
+			int dia, mes, ano;
+		};
+
+		struct ENDER{
+			char rua[30];
+			char bairro[30];
+			char cidade[30];
+			char num[10];
+			char complem[30];
+		};
+
+		struct FUNCS{
+			char nome[50];
+			struct PAIS filiac;
+			struct DT_NASC datan;
+			struct ENDER end;
+			int qtdat;
+		};
+
+	//Constantes
+		const int MAX = 30;
+		const int COR1 = 10;
+		const int COR2 = 12;
+
+	//Variaveis
+		struct FUNCS FUNCIO[MAX];
+		int I, ANOATUA, Cor, C;
+
+	//Inicializacao Variaveis
+		Cor = 0;
+		C = 0;
+	//Leitura
+		for(I = 0; I < MAX; I++){
+			//Nome
+				printf("Entre com o Nome do %iø Funcionario: ",(I+1));
+					do{
+						scanf("%s",&FUNCIO[I].nome);
+					}while(FUNCIO[I].nome == "");
+			//Rua
+				printf("\n");
+				printf("Entre com a Rua do Funcionario: ");
+					do{
+						scanf("%s",&FUNCIO[I].end.rua);
+					}while(FUNCIO[I].end.rua == "");
+			//Bairro
+				printf("\n");
+				printf("Entre com o Bairro do Funcionario: ");
+					do{
+						scanf("%s",&FUNCIO[I].end.bairro);
+					}while(FUNCIO[I].end.bairro == "");
+			//Cidade
+				printf("\n");
+				printf("Entre com a Cidade do Funcionario: ");
+					do{
+						scanf("%s",&FUNCIO[I].end.cidade);
+					}while(FUNCIO[I].end.cidade == "");
+			//Numero
+				printf("\n");
+				printf("Entre com o Numero da Casa do Funcionario: ");
+					do{
+						scanf("%s",&FUNCIO[I].end.num);
+					}while(FUNCIO[I].end.num == "");
+			//Dia Nasc
+				printf("\n");
+				printf("Entre com o Dia de Nascimento do Funcionario: ");
+					do{
+						scanf("%i",&FUNCIO[I].datan.dia);
+					}while((FUNCIO[I].datan.dia < 1) || (FUNCIO[I].datan.dia > 31));
+			//Mes Nasc
+				printf("\n");
+				printf("Entre com o Mes de Nascimento do Funcionario: ");
+					do{
+						scanf("%i",&FUNCIO[I].datan.mes);
+					}while((FUNCIO[I].datan.mes < 1) || (FUNCIO[I].datan.mes > 12));
+			//Ano Nasc
+				printf("\n");
+				printf("Entre com o Ano de Nascimento do Funcionario: ");
+					do{
+						scanf("%i",&FUNCIO[I].datan.ano);
+					}while(FUNCIO[I].datan.ano < 1980);
+			//Quantidade de Anos Trabalhados
+				printf("\n");
+				printf("Entre com o QTD. de Anos Trabalhados do Funcionario: ");
+					do{
+						scanf("%i",&FUNCIO[I].qtdat);
+					}while(FUNCIO[I].qtdat < 0);
+			//Nome do Pai
+				printf("\n");
+				printf("Entre com o Nome do Pai do Funcionario: ");
+					do{
+						scanf("%s",&FUNCIO[I].filiac.pai);
+					}while(FUNCIO[I].filiac.pai == "");
+			//Nome da Mae
+				printf("\n");
+				printf("Entre com o Nome da Mae do Funcionario: ");
+					do{
+						scanf("%s",&FUNCIO[I].filiac.mae);
+					}while(FUNCIO[I].filiac.mae == "");
+		}
+
+		printf("\n");
+		printf("Entre com o Ano atual: ");
+			do{
+				scanf("%i",&ANOATUA);
+			}while(ANOATUA < 1980);
+
+	//Processamento
+
+		for(I = 0; I < MAX; I++){
+			//cor
+				if(Cor%2 == 0){
+					textcolor(COR1);
+				}else{
+					textcolor(COR2);
+				}
+
+			//Resultado
+				printf("\n\n");
+				printf("Impressao do Resultado\n");
+					if((FUNCIO[I].qtdat > 10) && (ANOATUA - FUNCIO[I].datan.ano > 30)){
+						cprintf("%s \n",FUNCIO[I].nome);
+						Cor += 1;
+						C += 1;
+					}else if(C == 0){
+						printf("\n");
+						cprintf("Nenhum Resultado Encontrado");
+					}
+		}
+
+	//Impressao Valores Lidos
+		//Muito extenso oO
+
+	
+	getch();
+	return 0;
+}
