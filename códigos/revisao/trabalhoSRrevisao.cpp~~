@@ -1,0 +1,353 @@
+//		Trabalho Sub-Rotinas Revisão
+//	Integrantes
+//	 - Lucas Franco
+//	 - Viniciu Vicente
+/*################################# PROGRAMA ################################*/
+
+//Bibliotecas
+#<include stdio.h> // I/O base
+#<include conio.h> // Interface base
+#<include math.h> // calculos matematicos
+#<include string.h> // strings
+#<include cctype.h> //funções de caracter
+
+//Variaveis Globais
+	//Constantes
+	int MAX = 10;
+	//Variaveis
+
+
+
+/*########################### Procedimentos e Funções ###########################*/
+
+	/*###### PROCEDIMENTO DE INCLUSÃO ######*/
+
+void INCLUSAO(vet /*Vetor*/,k /*Índice*/){
+	//Inicio
+	//Variaveis
+	  char NOMAUX[50]; //Nome Auxiliar
+	  int CODAUX; //Codigo Auxiliar
+	  int I; // Índice do Vetor?
+	  int J; // Posição do Vetor no Procedimento
+	  char RESP1; // Confirma inclusão? S ou N
+	  char RESP; // Confirma continuar incluindo? S ou N
+
+	//Inicialização Variaveis
+	  RESP = "S";
+
+	//Leitura e Processamento
+	
+	//se o indice for maior que 0, faça-o ele mesmo
+	if(k>0){
+		I = k;
+	//senão faça-o 0	
+	}else{
+		I = 0;
+	}
+
+	//Enqanto desejar continuar incluindo e houver espaço no vetor faça
+	while((strcmp(RESP,"S")) and (I<=MAX)){
+		//Leia o Codigo
+		do{
+			printf("Entre com o código:");	
+			scanf("%i", &CODAUX);
+
+		}while(CODAUX<0);
+		
+		//Leia o Nome
+		do{
+			printf("Entre com o nome:");
+			gets(NOMEAUX);
+		}while(strcmp(NOMEAUX,""));
+		
+		//Inicie o Indice no procedimento em 0
+		J=0;
+
+		//Enquanto o Codigo digitado não existir no vetor
+		while((!strcmp(CODAUX,vet[J].codigo)) and (J<I)){
+			//continue procurando
+			J += 1;
+		}
+		//Até não encontrar.
+		if(J==I){
+			//Então pergunte se deseja incluir o nome na lista
+			do{
+				printf("Confirma a inclusão? (S/N)");
+				scanf("%c", &RESP1);
+				RESP1 = toupper(RESP1);
+			}while((!strcmp(RESP1,"S")) or (strcmp(RESP1,"N")));
+
+			//se desejar incluir
+			if(strcmp(RESP1,"S")){
+				//coloque o codigo no vetor
+				VET[I].codigo = CODAUX;
+				//coloque o nome no vetor
+				VET[I].nome = NOMEAUX;
+				//e diga que foi incluido com sucesso
+				printf("Inclusão efetuada com sucesso!");
+			}
+		//Se encontrar o código no vetor diga que ele já existe
+		}else{
+			printf("Código já cadastrado!");
+			//proteja o código
+			I -= 1;
+		}
+		
+
+		//se for possivel continuar incluindo
+		if(I<MAX){		
+			//Pergunte se deseja continuar incluindo
+			do{
+				printf("Deseja continuar incluindo? (S/N)");
+				scanf("%c", &RESP);
+				RESP = toupper(RESP);
+			}while((!strcmp(RESP,"S")) or (strcmp(RESP,"N")));
+		}
+
+	}//fim-loop de inclusão
+
+	//Transforme K em I
+	K = I;
+	
+	//se o não houver mais espaço no vetor alerte
+	if(I>MAX){
+		printf("Vetor já está Cheio! Não é possivél armazenar mais valores!!!");
+	}
+}//fim-procedimento de inclusão
+
+	/* ####### PROCEDIMENTO DE ALTERAÇÃO ######### */
+
+void ALTERAR(vet /*Vetor*/,k /*Índice*/){
+	//Inicio
+	//Variaveis
+	  char NOMAUX[50]; //Nome Auxiliar
+	  int CODAUX; //Codigo Auxiliar
+//	  int I; // Índice do Vetor
+	  int J; // Índice do Vetor no Procedimento
+	  char RESP1; // Confirma Alteração? S ou N
+	  char RESP; // Confirma continuar Alterando? S ou N
+
+	//Inicialização Variaveis
+	  RESP = "S";
+
+	//Leitura e Processamento
+		//verifique se o vetor está vazio
+		if(K>0){
+			//se não estiver faça
+			//enquanto desejar continuar alterando
+			while(strcmp(RESP,"S")){
+				//pergunte o índice que deseja alterar
+				do{
+					printf("Entre com o código do nome que deseja alterar:");
+					//leia o indice
+					scanf("%i", &CODAUX);
+				}while(CODAUX<0);
+			
+			//Inicie o Indice do procedimento em 0
+			J = 0;
+				//procure pelo registro no vetor
+				while((CODAUX != VET[J].codigo) and (J<MAX)){
+					J += 1;
+				}
+				//se achá-lo faça
+				if(CODAUX == VET[J].codigo){
+					//diga o nome registrado
+					printf("O nome armazenado é: %s", VET[J].nome);
+					//peça para digitar o novo nome
+					do{
+						printf("Entre com o novo nome:");
+						gets(NOMEAUX);
+					}while(strcmp(NOMEAUX,""));
+					
+					//pergunte se confirma a alteração
+					do{
+						printf("Confirma a alteração? (S/N)");
+						scanf("%c", &RESP1);
+						RESP1 = toupper(RESP1);
+					}while((!strcmp(RESP1,"S")) or (strcmp(RESP1,"N")));
+						//se confirmar faça
+						if(strcmp(RESP1,"S")){
+							//altere o nome
+							VET[J].nome = NOMEAUX;
+							//diga que foi alterado com sucesso
+							printf("Alteração efetuada com sucesso!");
+						}
+
+				//se o código não existir alerte
+				}else{
+					printf("Código não cadastrado!");
+				}
+
+				//pergunte se deseja continuar alterando
+				do{
+					printf("Deseja continuar alterando? (S/N)");
+					scanf("%c", &RESP);
+					RESP = toupper(RESP);
+				}while((!strcmp(RESP,"S")) or (strcmp(RESP,"N")));
+
+
+			}//fim-loop alteração
+		
+		//se o vetor estiver vazio avise
+		}else{
+			printf("Vetor Vazio !");
+		}		  
+
+}//fim-procedimento de alteração
+
+	/* ####### PROCEDIMENTO DE CONSULTA ######### */
+
+void CONSULTAR(vet /*Vetor*/,k /*Índice*/){
+	//Inicio
+	//Variaveis
+	  char NOMAUX[50]; //Nome Auxiliar
+	  int CODAUX; //Codigo Auxiliar
+//	  int I; // Índice do Vetor
+	  int J; // Índice do Vetor no Procedimento
+	  char RESP1; // Confirma Alteração? S ou N
+	  char RESP; // Confirma continuar Alterando? S ou N
+
+	//Inicialização Variaveis
+	  RESP = "S";
+
+	//Leitura e Processamento
+		//verifique se o vetor está vazio
+		if(K>0){
+			//se não estiver faça
+			//enquanto desejar continuar consultando
+			while(strcmp(RESP,"S")){
+				//pergunte o índice que deseja consultar
+				do{
+					printf("Entre com o código do nome que deseja consultar:");
+					//leia o indice
+					scanf("%i", &CODAUX);
+				}while(CODAUX<0);
+			
+			//Inicie o Indice do procedimento em 0
+			J = 0;
+				//procure pelo registro no vetor
+				while((CODAUX != VET[J].codigo) and (J<MAX)){
+					J += 1;
+				}
+				//se achá-lo faça
+				if(CODAUX == VET[J].codigo){
+					//diga o nome registrado
+					printf("O nome armazenado é: %s", VET[J].nome);
+
+				//se o código não existir alerte
+				}else{
+					printf("Código não cadastrado!");
+				}
+
+				//pergunte se deseja continuar alterando
+				do{
+					printf("Deseja continuar consultando? (S/N)");
+					scanf("%c", &RESP);
+					RESP = toupper(RESP);
+				}while((!strcmp(RESP,"S")) or (strcmp(RESP,"N")));
+
+
+			}//fim-loop consultar
+		
+		//se o vetor estiver vazio avise
+		}else{
+			printf("Vetor Vazio !");
+		}		  
+
+}//fim-procedimento de consulta
+
+
+	/* ####### PROCEDIMENTO DE IMPRESSÃO ######### */
+
+void IMPRIMIR(vet /*Vetor*/,k /*Índice*/){
+	//Inicio
+	//Variaveis
+//	  char NOMAUX[50]; //Nome Auxiliar
+//	  int CODAUX; //Codigo Auxiliar
+//	  int I; // Índice do Vetor
+	  int J; // Índice do Vetor no Procedimento
+//	  char RESP1; // Confirma Alteração? S ou N
+//	  char RESP; // Confirma continuar Alterando? S ou N
+
+	//Inicialização Variaveis
+
+
+	//Processamento
+		//verifique se o vetor está vazio
+		if(K>0){
+			//se não estiver faça
+			
+			//Inicie o Indice do procedimento em 0
+			J = 0;
+
+			//mostre o titulo da operação
+			printf("\n\nImpressão da Lista de Nomes\n\n");
+				//procure os registros do vetor
+				while(J<MAX){	
+					//diga o codigo e o nome registrado
+					printf("Código %i\t: %s", VET[J].codigo, VET[J].nome);
+					
+					//passe para o próximo				
+					J += 1;
+				}
+				//mostre como sair da impressão
+				printf("\nAperte qualquer tecla para finalizar a impressão!");
+				getch();
+		
+		//se o vetor estiver vazio avise
+		}else{
+			printf("Vetor Vazio !");
+		}		  
+
+}//fim-procedimento de impressão
+
+/*################################ PROGRAMA PRINCIPAL ################################*/
+void main(){
+	//Inicio
+	clrscr();
+	//Registros
+	struct PESSOAS{
+		int codigo;
+	   	char nome[50];	  
+	};
+
+	//Inicio
+	//Variaveis
+	struct PESSOAS VET_CAD[max]; //crie o vetor de cadastro
+	int opcao;
+	//Menu
+		while(opcao != 5){
+			printf("\t\tALGORITIMOS II\n");
+			printf("\tAplicação de Sub-Rotinas\n");
+			printf("-------------------------------\n");
+			printf("\tLista de Nomes\n\n");
+			printf("\tInserir\t\t-[1]\n");
+			printf("\tAlterar\t\t-[2]\n");			
+			printf("\tConsultar\t\t-[3]\n");
+			printf("\tImprimir\t\t-[4]\n");
+			printf("\tSair\t\t-[5]\n");
+			printf("-------------------------------\n\n");			
+			do{
+				printf("Mensagem: Entre com a opção desejada:");
+				scanf("%i", &opcao);
+			}while((opcao<0) or (opcao>5));
+
+			switch(opcao){
+				case 1: INSERIR(VET_CAD,MAX);
+					break;
+				case 2: ALTERAR(VET_CAD,MAX);
+					break;
+				case 3: CONSULTAR(VET_CAD,MAX);
+					break;
+				case 4: IMPRIMIR(VET_CAD,MAX);
+					break;
+				case 5: printf("Saindo...");
+					break;
+			}
+		}
+
+	//Fim
+	printf("Pressione uma tecla para fechar!");
+	getch();
+
+}
